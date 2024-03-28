@@ -1,0 +1,1 @@
+import{o as e,aq as a,g as t,i as s,as as _}from"./index-efd76d56.js";const o={class:"layout-wrapper layout-blank"},l={__name:"auth",setup(r){return(n,c)=>(e(),a("div",o,[t(s(_))]))}};export{l as default};
