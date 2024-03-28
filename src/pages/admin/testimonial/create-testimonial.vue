@@ -41,7 +41,6 @@ const handleFileChange = e => {
 
   if (file) {
     avatar.value = file
-    avatar_name.value = file.name
   }
 }
 </script>
