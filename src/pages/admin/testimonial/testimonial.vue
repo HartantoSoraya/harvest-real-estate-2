@@ -1,18 +1,12 @@
 <template>
   <VRow>
-    <VCol
-      cols="12"
-      class="d-flex justify-space-between align-items-center"
-    >
+    <VCol cols="12" class="d-flex justify-space-between align-items-center">
       <h2 class="mb-0">
         Testimonial
       </h2>
 
-      <VBtn
-        :to="{ name: 'admin-testimonials' }"
-        color="primary"
-      >
-        Kembali
+      <VBtn :to="{ name: 'admin-testimonials' }" color="primary">
+        Back
       </VBtn>
     </VCol>
 
@@ -20,44 +14,20 @@
       <VCard>
         <VForm>
           <VRow>
-            <VCol
-              cols="12"
-              md="12"
-            >
-              <VImg
-                v-if="avatar"
-                :src="avatar"
-                :alt="name"
-                width="200"
-                height="200"
-              />
+            <VCol cols="12" md="12">
+              <VImg v-if="avatar" :src="avatar" :alt="name" width="200" height="200" />
             </VCol>
 
-            <VCol
-              cols="12"
-              md="12"
-            >
-              <VTextField
-                v-model="name"
-                label="Nama"
-                placeholder="Nama"
-                :error-messages="error && error.name ? [error.name] : []"
-                :disabled="loading"
-                :loading="loading"
-                readonly
-              />
+            <VCol cols="12" md="12">
+              <VTextField v-model="name" label="Name" placeholder="Name"
+                :error-messages="error && error.name ? [error.name] : []" :disabled="loading" :loading="loading"
+                readonly />
             </VCol>
 
             <VCol cols="12">
-              <VTextarea
-                v-model="testimonial"
-                label="Testimonial"
-                placeholder="Testimonial"
-                :error-messages="error && error.testimonial ? [error.testimonial] : []"
-                :disabled="loading"
-                :loading="loading"
-                readonly
-              />
+              <VTextarea v-model="testimonial" label="Testimonial" placeholder="Testimonial"
+                :error-messages="error && error.testimonial ? [error.testimonial] : []" :disabled="loading"
+                :loading="loading" readonly />
             </VCol>
           </VRow>
         </VForm>
@@ -77,13 +47,11 @@ const route = useRoute()
 const { loading, error } = storeToRefs(useTestimonialStore())
 const { fetchTestimonial } = useTestimonialStore()
 
-
 const testimonialId = route.params.id
 
 const name = ref('')
 const avatar = ref(null)
 const testimonial = ref('')
-
 
 const fetchTestimonialData = async () => {
   try {

@@ -5,17 +5,17 @@ const adminTestimonialRoutes = [
     name: 'admin-testimonials',
   },
   {
-    path: 'testimonials/create',
+    path: 'testimonial/create',
     component: () => import('../pages/admin/testimonial/create-testimonial.vue'),
     name: 'admin-testimonial-create',
   },
   {
-    path: 'testimonials/:id',
+    path: 'testimonial/:id',
     component: () => import('../pages/admin/testimonial/testimonial.vue'),
     name: 'admin-testimonial-view',
   },
   {
-    path: 'testimonials/:id/edit',
+    path: 'testimonial/:id/edit',
     component: () => import('../pages/admin/testimonial/edit-testimonial.vue'),
     name: 'admin-testimonial-edit',
   },

@@ -2,10 +2,10 @@
   <VRow>
     <VCol cols="12" class="d-flex justify-space-between align-items-center">
       <h2 class="mb-0">
-        Edit Testimonial
+        Edit Property Category
       </h2>
 
-      <VBtn :to="{ name: 'admin-testimonials' }" color="primary">
+      <VBtn :to="{ name: 'admin-property-categories' }" color="primary">
         Back
       </VBtn>
     </VCol>
@@ -20,14 +20,13 @@
             </VCol>
 
             <VCol cols="12" md="6">
-              <VFileInput v-model="avatar_name" label="Avatar" placeholder="Avatar"
-                :error-messages="error && error.avatar ? [error.avatar] : []" @change="handleFileChange" />
+              <VTextField v-model="icon" label="Icon" placeholder="Icon"
+                :error-messages="error && error.icon ? [error.icon] : []" :disabled="loading" :loading="loading" />
             </VCol>
 
             <VCol cols="12">
-              <VTextarea v-model="testimonial" label="Testimonial" placeholder="Testimonial"
-                :error-messages="error && error.testimonial ? [error.testimonial] : []" :disabled="loading"
-                :loading="loading" />
+              <VTextField v-model="slug" label="Slug" placeholder="Slug"
+                :error-messages="error && error.slug ? [error.slug] : []" :disabled="loading" :loading="loading" />
             </VCol>
 
             <VCol cols="12" class="d-flex gap-4">
@@ -47,61 +46,52 @@
 </template>
 
 <script setup>
-import { useTestimonialStore } from '@/stores/testimonial'
+import { usePropertyCategoryStore } from '@/stores/property-category'
 import { storeToRefs } from 'pinia'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
 
-const { loading, error } = storeToRefs(useTestimonialStore())
-const { fetchTestimonial, updateTestimonial } = useTestimonialStore()
+const { loading, error } = storeToRefs(usePropertyCategoryStore())
+const { fetchPropertyCategory, updatePropertyCategory } = usePropertyCategoryStore()
 
-const testimonialId = route.params.id
+const propertyCategoryId = route.params.id
 
 const name = ref('')
-const avatar = ref(null)
-const avatar_name = ref('')
-const testimonial = ref('')
+const icon = ref('')
+const slug = ref('')
 
-const fetchTestimonialData = async () => {
+const fetchPropertyCategoryData = async () => {
   try {
-
-    const data = await fetchTestimonial(testimonialId)
+    
+    const data = await fetchPropertyCategory(propertyCategoryId)
 
     name.value = data.name
-    testimonial.value = data.testimonial
+    icon.value = data.icon
+    slug.value = data.slug
   } catch (error) {
-    console.error(error)
+    console.log(error)
   }
 }
 
 onMounted(() => {
-  fetchTestimonialData()
+  fetchPropertyCategoryData()
 
-  document.title = 'Edit Testimonial'
+  document.title = 'Edit Property Category'
 })
 
 const handleSubmit = () => {
-  updateTestimonial({
-    id: testimonialId,
+  updatePropertyCategory({
+    id: propertyCategoryId,
     name: name.value,
-    avatar: avatar.value,
-    testimonial: testimonial.value,
+    icon: icon.value,
+    slug: slug.value
   })
 }
 
 const handleReset = () => {
-  fetchTestimonialData()
-}
-
-const handleFileChange = e => {
-  const file = e.target.files[0]
-
-  if (file) {
-    avatar.value = file
-    avatar_name.value = file.name
-  }
+  fetchPropertyCategoryData()
 }
 </script>
 

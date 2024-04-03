@@ -3,33 +3,33 @@ import router from '@/router'
 import { defineStore } from 'pinia'
 import { handleError } from '@/helpers/errorHelper'
 
-export const useTestimonialStore = defineStore({
-  id: 'testimonial',
+export const usePropertyAmenityStore = defineStore({
+  id: 'propertyAmenity',
   state: () => ({
-    testimonials: [],
+    propertyAmenities: [],
     loading: false,
     error: null,
     success: null,
   }),
   actions: {
-    async fetchTestimonials() {
+    async fetchPropertyAmenities() {
       try {
         this.loading = true
 
-        const response = await axiosInstance.get('/testimonials')
+        const response = await axiosInstance.get('/property-amenities')
 
-        this.testimonials = response.data.data
+        this.propertyAmenities = response.data.data
       } catch (error) {
         this.handleError(error)
       } finally {
         this.loading = false
       }
     },
-    async fetchTestimonial(id) {
+    async fetchPropertyAmenity(id) {
       try {
         this.loading = true
 
-        const response = await axiosInstance.get(`/testimonial/${id}`)
+        const response = await axiosInstance.get(`/property-amenity/${id}`)
 
         return response.data.data
       } catch (error) {
@@ -38,41 +38,41 @@ export const useTestimonialStore = defineStore({
         this.loading = false
       }
     },
-    async createTestimonial(payload) {
+    async createPropertyAmenity(payload) {
       try {
         this.loading = true
 
-        const response = await axiosInstance.post('/testimonial', payload)
+        const response = await axiosInstance.post('/property-amenity', payload)
 
         this.success = response.data.message
 
-        router.push({ name: 'admin-testimonials' })
+        router.push({ name: 'admin-property-amenities' })
       } catch (error) {
         this.error = handleError(error)
       } finally {
         this.loading = false
       }
     },
-    async updateTestimonial(payload) {
+    async updatePropertyAmenity(payload) {
       try {
         this.loading = true
 
-        const response = await axiosInstance.post(`/testimonial/${payload.id}`, payload)
+        const response = await axiosInstance.post(`/property-amenity/${payload.id}`, payload)
 
         this.success = response.data.message
 
-        router.push({ name: 'admin-testimonials' })
+        router.push({ name: 'admin-property-amenities' })
       } catch (error) {
         this.error = handleError(error)
       } finally {
         this.loading = false
       }
     },
-    async deleteTestimonial(id) {
+    async deletePropertyAmenity(id) {
       try {
         this.loading = true
 
-        const response = await axiosInstance.delete(`/testimonial/${id}`)
+        const response = await axiosInstance.delete(`/property-amenity/${id}`)
 
         this.success = response.data.message
       } catch (error) {
@@ -80,6 +80,6 @@ export const useTestimonialStore = defineStore({
       } finally {
         this.loading = false
       }
-    },
-  },
+    }
+  }
 })
