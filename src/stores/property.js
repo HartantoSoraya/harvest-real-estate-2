@@ -51,7 +51,7 @@ export const usePropertyStore = defineStore({
         const response = await axiosInstance.get(`/property/${id}`)
         this.success = response.data.data
         this.loading = false
-        return this.product
+        return this.property
       } catch (error) {
         this.error = handleError(error)
       } finally {
@@ -91,6 +91,28 @@ export const usePropertyStore = defineStore({
         this.error = handleError(error)
       } finally {
         this.loading = false
+      }
+    },
+    async updateActiveProperty(id, payload) {
+      this.loading = true
+
+      try {
+        const response = await axiosInstance.post(`/property/active/${id}`, payload)
+        this.success = response.data.message
+      } catch (error) {
+        this.error = handleError(error)
+      }
+
+      this.loading = false
+    },
+    async updateFeaturedProperty(id, payload) {
+      this.loading = true
+
+      try {
+        const response = await axiosInstance.post(`/property/featured/${id}`, payload)
+        this.success = response.data.message
+      } catch (error) {
+        this.error = error
       }
     }
   }
